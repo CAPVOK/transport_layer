@@ -3,8 +3,6 @@ package com.example.transport_layer.models;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import java.io.Serializable;
-
 /**
  * @author Vladimir Krasnov
  */
@@ -13,15 +11,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SegmentDto implements Serializable, Comparable<SegmentDto> {
+public class MessageDtoWithError {
     private String sender;
     private String timestamp;
-    private Integer amountOfSegments;
-    private Integer segmentNum;
     private String message;
-
-    @Override
-    public int compareTo(SegmentDto otherSegment) {
-        return this.segmentNum.compareTo(otherSegment.getSegmentNum());
-    }
+    private Boolean error;
 }

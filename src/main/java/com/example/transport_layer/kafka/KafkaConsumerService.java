@@ -43,9 +43,12 @@ public class KafkaConsumerService {
                 Collections.sort(v);
                 String message = v.stream().map(SegmentDto::getMessage).collect(Collectors.joining());
                 MessageDtoWithError dto = new MessageDtoWithError(v.get(0).getSender(), v.get(0).getTimestamp(), message , false);
+                api.sendPostRequest( "http://localhost:5001/api/send-message", dto);
             }else {
                 MessageDtoWithError dto = new MessageDtoWithError(v.get(0).getSender(), v.get(0).getTimestamp(), null , true);
+                api.sendPostRequest( "http://localhost:5001/api/send-message", dto);
             }
+
         });
         map.clear();
     }

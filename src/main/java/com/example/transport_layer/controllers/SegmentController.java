@@ -20,7 +20,6 @@ import java.util.List;
 @CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("")
-@SecurityRequirement(name = "bearerAuth")
 public class SegmentController {
 
     private final MessageToSegmentsService messageToSegmentsService;
@@ -33,4 +32,11 @@ public class SegmentController {
                 .body(res);
     }
 
+    @PostMapping("/get-message")
+    public ResponseEntity<?> getMessage(@RequestBody SegmentDto message){
+        SegmentDto res = new SegmentDto();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
+    }
 }

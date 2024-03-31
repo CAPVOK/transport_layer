@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "description": "Transport layer"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8082/api",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/send-message": {
+      "post": {
+        "tags": [
+          "segment-controller"
+        ],
+        "operationId": "sendMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SegmentDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-message": {
+      "post": {
+        "tags": [
+          "segment-controller"
+        ],
+        "operationId": "getMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SegmentDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MessageDto": {
+        "type": "object",
+        "properties": {
+          "sender": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "SegmentDto": {
+        "type": "object",
+        "properties": {
+          "sender": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "amountOfSegments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "segmentNum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

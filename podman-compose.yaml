@@ -2,12 +2,12 @@ version: '3'
 
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: bitnami/zookeeper
     ports:
       - "2181:2181"
 
   kafka:
-    image: wurstmeister/kafka
+    image: bitnami/kafka
     ports:
       - "9092:9092"
     environment:

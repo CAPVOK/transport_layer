@@ -15,12 +15,13 @@ import org.springframework.web.client.RestTemplate;
 public class SendService {
 
     private final RestTemplate restTemplate;
-    public void sendPostRequest(String url, Object data) {
+    public Object sendPostRequest(String url, Object data) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(data, headers);
 
-        restTemplate.postForObject(url, requestEntity, Object.class);
+        var res = restTemplate.postForObject(url, requestEntity, Object.class);
+        return res;
     }
 }

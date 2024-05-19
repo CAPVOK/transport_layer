@@ -28,8 +28,9 @@ public class KafkaConsumerService {
 
     private static final Map<String, List<SegmentDto>> map = new ConcurrentHashMap<>();
 
-    @KafkaListener(topics = TOPIC_NAME, groupId = "1")
+    @KafkaListener(topics = TOPIC_NAME, groupId = "2")
     public void consumeMessage(ConsumerRecord<String, SegmentDto> message) {
+        System.out.println(message.value());
         SegmentDto segment = message.value();
         if(map.containsKey(segment.getTimestamp())){
             map.get(segment.getTimestamp()).add(segment);

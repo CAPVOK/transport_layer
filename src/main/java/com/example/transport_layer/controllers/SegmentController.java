@@ -1,5 +1,6 @@
 package com.example.transport_layer.controllers;
 
+import com.example.transport_layer.kafka.KafkaProducerService;
 import com.example.transport_layer.models.MessageDto;
 import com.example.transport_layer.models.SegmentDto;
 import com.example.transport_layer.services.MessageToSegmentsService;
@@ -23,20 +24,21 @@ import java.util.List;
 public class SegmentController {
 
     private final MessageToSegmentsService messageToSegmentsService;
+    private final KafkaProducerService kafkaProducerService;
 
     @PostMapping("/send-message")
-    public ResponseEntity<List<SegmentDto>> sendMessage(@RequestBody MessageDto message){
+    public ResponseEntity<?> sendMessage(@RequestBody MessageDto message){
         List<SegmentDto> res = messageToSegmentsService.messageToSegmentsAndSend(message);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(res);
+                .build();
     }
 
     @PostMapping("/get-message")
     public ResponseEntity<?> getMessage(@RequestBody SegmentDto message){
-        SegmentDto res = new SegmentDto();
+        kafkaProducerService.sendMessage(message);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(res);
+                .build();
     }
 }

@@ -41,8 +41,8 @@ public class MessageToSegmentsService {
                     number,
                     segment);
             segmentList.add(segmentDto);
-            //sendService.sendPostRequest("", segmentDto);
-            kafkaProducerService.sendMessage(segmentDto);
+            var res = sendService.sendPostRequest("http://localhost:8081/api/datalink", segmentDto);
+            //kafkaProducerService.sendMessage(segmentDto);
             number++;
         }
         return segmentList;
